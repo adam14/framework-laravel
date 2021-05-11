@@ -7,9 +7,9 @@ use Illuminate\Routing\Controller;
 use Exception;
 use DB;
 
-use App\Entities\Categories;
+use App\Entities\Products;
 
-class CategoriesController extends Controller
+class ProductsController extends Controller
 {
     public function index(Request $request)
     {
@@ -17,7 +17,7 @@ class CategoriesController extends Controller
             $offset = $request->offset ?? 0;
             $limit = $request->limit ?? 25;
             
-            $data = Categories::offset($offset)->limit($limit)->get();
+            $data = Products::offset($offset)->limit($limit)->get();
 
             return response()->json([
                 'status' => true,
@@ -39,15 +39,15 @@ class CategoriesController extends Controller
                 throw new Exception('ID not found.');
             }
 
-            $categories = Categories::find($id);
+            $products = Products::find($id);
 
-            if (!$categories) {
+            if (!$products) {
                 throw new Exception('Data not found.');
             }
 
             return response()->json([
                 'status' => true,
-                'data' => $categories
+                'data' => $products
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -62,22 +62,24 @@ class CategoriesController extends Controller
         DB::beginTransaction();
         try {
             $name = $request->name;
+            $description = $request->description;
             $enable = $request->enable;
 
-            if (empty($name) || empty($enable)) {
+            if (empty($name) || empty($enable) || empty($description)) {
                 throw new Exception('Field empty, try again.');
             }
 
-            $categories = new Categories;
-            $categories->name = $name;
-            $categories->enable = $enable;
-            $categories->save();
+            $products = new products;
+            $products->name = $name;
+            $products->description = $description;
+            $products->enable = $enable;
+            $products->save();
 
             DB::commit();
 
             return response()->json([
                 'status' => true,
-                'data' => $categories,
+                'data' => $products,
                 'message' => 'successfully added.'
             ], 201);
         } catch (Exception $e) {
@@ -97,28 +99,30 @@ class CategoriesController extends Controller
                 throw new Exception('ID not found.');
             }
 
-            $categories = Categories::find($id);
+            $products = Products::find($id);
 
-            if (!$categories) {
+            if (!$products) {
                 throw new Exception('Data not found.');
             }
 
             $name = $request->name;
+            $description = $request->description;
             $enable = $request->enable;
 
-            if (empty($name) || empty($enable)) {
+            if (empty($name) || empty($enable) || empty($description)) {
                 throw new Exception('Field empty, try again.');
             }
 
-            $categories->name = $name;
-            $categories->enable = $enable;
-            $categories->save();
+            $products->name = $name;
+            $products->description = $description;
+            $products->enable = $enable;
+            $products->save();
 
             DB::commit();
 
             return response()->json([
                 'status' => true,
-                'data' => $categories,
+                'data' => $products,
                 'message' => 'successfully updated'
             ], 200);
         } catch (Exception $e) {
@@ -139,8 +143,8 @@ class CategoriesController extends Controller
                 throw new Exception('ID not found.');
             }
 
-            $categories = Categories::find($id);
-            $categories->delete();
+            $products = Products::find($id);
+            $products->delete();
 
             DB::commit();
             return response()->json([

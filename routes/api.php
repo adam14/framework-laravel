@@ -19,10 +19,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function() {
+
+    // CRUD Category
     Route::group(['prefix' => 'categories'], function() {
         Route::get('/', 'CategoriesController@index');
+        Route::get('/detail/{id}', 'CategoriesController@detail');
         Route::post('/add', 'CategoriesController@add');
         Route::put('/edit/{id}', 'CategoriesController@edit');
         Route::delete('/delete/{id}', 'CategoriesController@delete');
+    });
+
+    // CRUD Product
+    Route::group(['prefix' => 'products'], function() {
+        Route::get('/', 'ProductsController@index');
+        Route::get('/detail/{id}', 'ProductsController@detail');
+        Route::post('/add', 'ProductsController@add');
+        Route::put('/edit/{id}', 'ProductsController@edit');
+        Route::delete('/delete/{id}', 'ProductsController@delete');
     });
 });
