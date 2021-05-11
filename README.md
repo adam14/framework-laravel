@@ -7,6 +7,28 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+## End Point
+Category: 
+- Method GET => /api/v1/categories
+- Method GET => /api/v1/categories/detail/{id}
+- Method POST => /api/v1/categories/add => Body [name, enable]
+- Method PUT => /api/v1/categories/edit/{id} => Body [name, enable]
+- Method DELETE => /api/v1/categories/delete/{id}
+
+Category Product:
+- Method GET => /api/v1/category_products (Tambahan parameter product_id atau category_id untuk mencari masing-masing kondisi)
+- Method GET => /api/v1/category_products/detail/{id}
+- Method POST => /api/v1/category_products/add => Body [product_id, category_id]
+- Method PUT => /api/v1/category_products/edit/{id} => Body [product_id, category_id]
+- Method DELETE => /api/v1/category_products/delete/{id}
+
+Product:
+- Method GET => /api/v1/products
+- Method GET => /api/v1/products/detail/{id}
+- Method POST => /api/v1/products/add => Body [name, description, enable]
+- Method PUT => /api/v1/products/edit/{id} => Body [name, description, enable]
+- Method DELETE => /api/v1/products/delete/{id}
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
