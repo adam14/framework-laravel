@@ -55,4 +55,13 @@ Route::group(['prefix' => 'v1'], function() {
         Route::put('/edit/{id}', 'ProductsController@edit');
         Route::delete('/delete/{id}', 'ProductsController@delete');
     });
+
+    // Module Product Images
+    Route::group(['prefix' => 'product_images'], function() {
+        Route::get('/', 'ProductImagesController@index');
+        Route::get('/detail/{id}', 'ProductImagesController@detail');
+        Route::post('/add', 'ProductImagesController@add');
+        Route::put('/edit/{id}', 'ProductImagesController@edit');
+        Route::delete('/delete/{id}', 'ProductImagesController@delete');
+    });
 });

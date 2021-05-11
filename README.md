@@ -36,6 +36,13 @@ Product:
 - Method PUT => /api/v1/products/edit/{id} => Body [name, description, enable]
 - Method DELETE => /api/v1/products/delete/{id}
 
+Product Images:
+- Method GET => /api/v1/product_images (Tambahan parameter product_id atau image_id untuk mencari masing-masing kondisi)
+- Method GET => /api/v1/product_images/detail/{id}
+- Method POST => /api/v1/product_images/add => Body [product_id, image_id]
+- Method PUT => /api/v1/product_images/edit/{id} => Body [product_id, image_id]
+- Method DELETE => /api/v1/product_images/delete/{id}
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

@@ -7,9 +7,9 @@ use Illuminate\Routing\Controller;
 use Exception;
 use DB;
 
-use App\Entities\CategoryProducts;
+use App\Entities\ProductImages;
 
-class CategoryProductsController extends Controller
+class ProductImagesController extends Controller
 {
     public function index(Request $request)
     {
@@ -17,9 +17,9 @@ class CategoryProductsController extends Controller
             $offset = $request->offset ?? 0;
             $limit = $request->limit ?? 25;
             $product_id = $request->product_id ?? '';
-            $category_id = $request->category_id ?? '';
+            $image_id = $request->image_id ?? '';
             
-            $data = CategoryProducts::with(['products', 'categories'])
+            $data = ProductImages::with(['products', 'images'])
                     ->when(
                         $product_id != '',
                         function ($q) use ($product_id) {
@@ -27,8 +27,8 @@ class CategoryProductsController extends Controller
                         }
                     )
                     ->when(
-                        $category_id != '',
-                        function ($q) use ($category_id) {
+                        $images_id != '',
+                        function ($q) use ($images_id) {
                             return $q->where(['category_id' => $category_id]);
                         }
                     )
@@ -56,15 +56,15 @@ class CategoryProductsController extends Controller
                 throw new Exception('ID not found.');
             }
 
-            $category_products = CategoryProducts::with(['products', 'categories'])->find($id);
+            $product_images = ProductImages::with(['products', 'images'])->find($id);
 
-            if (!$category_products) {
+            if (!$product_images) {
                 throw new Exception('Data not found.');
             }
 
             return response()->json([
                 'status' => true,
-                'data' => $category_products
+                'data' => $product_images
             ], 200);
         } catch (Exception $e) {
             return response()->json([
@@ -79,22 +79,22 @@ class CategoryProductsController extends Controller
         DB::beginTransaction();
         try {
             $product_id = $request->product_id;
-            $category_id = $request->category_id;
+            $image_id = $request->image_id;
 
-            if (!$product_id || !$category_id || !is_numeric($product_id) || !is_numeric($category_id)) {
+            if (!$product_id || !$image_id || !is_numeric($product_id) || !is_numeric($image_id)) {
                 throw new Exception('Field empty, try again.');
             }
 
-            $category_products = new CategoryProducts;
-            $category_products->product_id = $product_id;
-            $category_products->category_id = $category_id;
-            $category_products->save();
+            $product_images = new ProductImages;
+            $product_images->product_id = $product_id;
+            $product_images->image_id = $image_id;
+            $product_images->save();
 
             DB::commit();
 
             return response()->json([
                 'status' => true,
-                'data' => $category_products,
+                'data' => $product_images,
                 'message' => 'successfully added.'
             ], 201);
         } catch (Exception $e) {
@@ -115,28 +115,28 @@ class CategoryProductsController extends Controller
                 throw new Exception('ID not found.');
             }
 
-            $category_products = CategoryProducts::find($id);
+            $product_images = ProductImages::find($id);
 
-            if (!$category_products) {
+            if (!$product_images) {
                 throw new Exception('Data not found.');
             }
 
             $product_id = $request->product_id;
-            $category_id = $request->category_id;
+            $image_id = $request->image_id;
 
-            if (!$product_id || !$category_id || !is_numeric($product_id) || !is_numeric($category_id)) {
+            if (!$product_id || !$image_id || !is_numeric($product_id) || !is_numeric($image_id)) {
                 throw new Exception('Field empty, try again.');
             }
 
-            $category_products->product_id = $product_id;
-            $category_products->category_id = $category_id;
-            $category_products->save();
+            $product_images->product_id = $product_id;
+            $product_images->image_id = $image_id;
+            $product_images->save();
 
             DB::commit();
 
             return response()->json([
                 'status' => true,
-                'data' => $category_products,
+                'data' => $product_images,
                 'message' => 'successfully updated'
             ], 200);
         } catch (Exception $e) {
@@ -157,8 +157,8 @@ class CategoryProductsController extends Controller
                 throw new Exception('ID not found.');
             }
 
-            $category_products = CategoryProducts::find($id);
-            $category_products->delete();
+            $product_images = ProductImages::find($id);
+            $product_images->delete();
 
             DB::commit();
             return response()->json([
