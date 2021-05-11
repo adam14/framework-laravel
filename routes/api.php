@@ -38,6 +38,15 @@ Route::group(['prefix' => 'v1'], function() {
         Route::delete('/delete/{id}', 'CategoryProductsController@delete');
     });
 
+    // Module Images
+    Route::group(['prefix' => 'images'], function() {
+        Route::get('/', 'ImagesController@index');
+        Route::get('/detail/{id}', 'ImagesController@detail');
+        Route::post('/add', 'ImagesController@add');
+        Route::post('/edit/{id}', 'ImagesController@edit');
+        Route::delete('/delete/{id}', 'ImagesController@delete');
+    });
+
     // Module Product
     Route::group(['prefix' => 'products'], function() {
         Route::get('/', 'ProductsController@index');

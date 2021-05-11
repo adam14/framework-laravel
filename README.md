@@ -22,6 +22,13 @@ Category Product:
 - Method PUT => /api/v1/category_products/edit/{id} => Body [product_id, category_id]
 - Method DELETE => /api/v1/category_products/delete/{id}
 
+Images:
+- Method GET => /api/v1/images
+- Method GET => /api/v1/images/detail/{id}
+- Method POST => /api/v1/images/add => Body form-data [name, file_image, enable]
+- Method PUT => /api/v1/images/edit/{id} => Body form-data [name, file_image, enable]
+- Method DELETE => /api/v1/images/delete/{id}
+
 Product:
 - Method GET => /api/v1/products
 - Method GET => /api/v1/products/detail/{id}
